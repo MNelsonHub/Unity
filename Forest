@@ -1,0 +1,83 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
+public class ForestScript : MonoBehaviour
+{
+
+    private enum Position { wake, look_Around, sit, inspect, footPrint, footPrintCorrect, footPrintWrong };
+
+    private Position myPosition; //I am making a variable called myPostion that can hold any Position. In other words, myPosition can hold any of the enum constants
+
+    public Text text;
+
+    // Use this for initialization
+    void Start()
+    {
+        myPosition = Position.wake;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        print(myPosition);
+        if (myPosition == Position.wake) { wake(); }
+        else if (myPosition == Position.look_Around) { look_Around(); }
+        else if (myPosition == Position.sit) { sit(); }
+        else if (myPosition == Position.inspect) { inspect(); }
+        else if (myPosition == Position.footPrint) { footPrint(); }
+        else if (myPosition == Position.footPrintCorrect) { footPrintCorrect(); }
+    }
+    void wake()
+    {
+        text.text = "You wake up and find yourself laying on the ground and wondering where you are. You slowly get up and look around. "
+        + "You realize that you’re in a forest and have no idea how you even got here. You turn in every direction trying to "
+        + "look for your house but all you see is trees and foliage in every direction. You need to find your house before dark "
+        + "because you're afraid that you will end up dying in the night due to wilderness.\n\n"
+        + "Press [A] to look around, [B] to sit down in the dirt, [C] to inspect yourself to see if you have any clues on your body.";
+
+        if (Input.GetKeyDown(KeyCode.A)) { myPosition = Position.look_Around; }
+        if (Input.GetKeyDown(KeyCode.B)) { myPosition = Position.sit; }
+        if (Input.GetKeyDown(KeyCode.C)) { myPosition = Position.inspect; }
+    }
+    void look_Around()
+    {
+        text.text = "You look around but you don't see much besides trees and other foliage. You need to find some clues to get back home. \n\n"
+        + "Press [D] to go back to where you started.";
+
+        if (Input.GetKeyDown(KeyCode.D)) { myPosition = Position.wake; }
+
+    }
+    void sit()
+    {
+        text.text = "You sit down on the floor of the forest. You look around and think to yourself that sitting here isn't going to do anything for you."
+        + "While you're getting up, you notice that there are some two sets of footprints on the ground.\n\n"
+        + "Press [D] to go back where you started or [E] to follow the footprint trails.";
+
+        if (Input.GetKeyDown(KeyCode.D)) { myPosition = Position.wake; }
+        if (Input.GetKeyDown(KeyCode.E)) { myPosition = Position.footPrint; }
+    }
+    void inspect()
+    {
+        text.text = "You reach in your pockets to find if there are any notes or clues on how to get home. "
+        + "You don't find anything usefull in your pockets besides some lint.\n\n "
+        + "Press [D] to go back where you started.";
+
+        if (Input.GetKeyDown(KeyCode.D)) { myPosition = Position.wake; }
+    }
+    void footPrint()
+    {
+        text.text = "While you start to follow the two footprints, you start to see that the footprint trails stop and each go in different directions."
+        + "You have to pick a trail of foot prints to follow.\n\n"
+        + "Press [F] to go to the left footprint path or press [G] to go to the right footprint path.";
+
+        if (Input.GetKeyDown(KeyCode.F)) { myPosition = Position.footPrintCorrect; }
+        if (Input.GetKeyDown(KeyCode.G)) { myPosition = Position.footPrintWrong; }
+    }
+    void footPrintCorrect()
+    {
+        text.text = "You start to follow the footprint path to the left. As you keep on following the path, you start to notice that it's getting darker."
+        + "You hope that this is the right footprint path to follow. With darkness coming, you're afr";
+    }
+
+}
